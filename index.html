@@ -501,6 +501,7 @@
   </footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   // ---- Build the six-segment wheel ----
   (function () {
@@ -607,15 +608,38 @@
     update();
   })();
 
-  // ---- Waitlist (front-end only for now) ----
-  document.querySelectorAll('.waitlist').forEach(function (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      // TODO: wire to Supabase `waitlist` table (remember table GRANTs + RLS)
-      form.style.display = 'none';
-      form.nextElementSibling.style.display = 'block';
+  // ---- Waitlist: live Supabase insert ----
+  (function () {
+    var SUPABASE_URL = 'https://rciytmpciefycswhvzaj.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjaXl0bXBjaWVmeWNzd2h2emFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyNzYyMTIsImV4cCI6MjA5ODg1MjIxMn0.uhoEEL5zQNrQnR2yqTMpJjlprLkkSzkNabNrSeDwVM8';
+
+    var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    document.querySelectorAll('.waitlist').forEach(function (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var input = form.querySelector('input[type="email"]');
+        var button = form.querySelector('button');
+        var email = input.value.trim().toLowerCase();
+        if (!email) return;
+
+        button.disabled = true;
+        button.textContent = 'Joining\u2026';
+
+        var result = await client.from('waitlist').insert({ email: email });
+
+        if (!result.error || result.error.code === '23505') {
+          form.style.display = 'none';
+          form.nextElementSibling.style.display = 'block';
+        } else {
+          button.disabled = false;
+          button.textContent = 'Join the waitlist';
+          alert('Something went wrong, please try again.');
+          console.error('Waitlist insert failed:', result.error);
+        }
+      });
     });
-  });
+  })();
 </script>
 </body>
 </html>
