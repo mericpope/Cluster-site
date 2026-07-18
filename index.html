@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cluster — Mission control for expat finances</title>
+<title>Cluster | Mission control for expat finances</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
     --ink-soft: #4A554F;
     --emerald: #0E6B4F;
     --emerald-bright: #159A6F;
+    --gold: #B08A2E;
     --silver: #C9CFCC;
     --silver-line: #DDE2DE;
     --mono: 'IBM Plex Mono', monospace;
@@ -56,6 +57,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 26px 0;
   }
+  .brand-stack { display: flex; flex-direction: column; }
   .brand {
     font-family: 'Marcellus', serif;
     font-size: 1.35rem;
@@ -64,7 +66,14 @@
     color: var(--ink);
     text-decoration: none;
   }
-  .brand .dot { color: var(--emerald); }
+  .tagline {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-top: 4px;
+  }
   nav a.cta-small {
     font-size: 0.85rem; font-weight: 600;
     color: var(--emerald);
@@ -280,6 +289,9 @@
     font-size: 0.95rem;
   }
   .juris .j-count b { font-weight: 500; color: var(--emerald); }
+  .juris.gold .j-name,
+  .juris.gold .j-count,
+  .juris.gold .j-count b { color: var(--gold); }
   .bar {
     height: 6px;
     border-radius: 999px;
@@ -291,7 +303,7 @@
     border-radius: 999px;
     background: linear-gradient(to right, var(--emerald), var(--emerald-bright));
     width: 0;
-    transition: width 1.2s cubic-bezier(0.2, 0.7, 0.3, 1);
+    transition: width 0.1s linear;
   }
   .bar.warn i { background: linear-gradient(to right, #B08A2E, #D4AF37); }
   .feature-copy h2 { margin-bottom: 16px; }
@@ -303,28 +315,29 @@
     background: rgba(255, 255, 255, 0.6);
     border: 1px solid var(--silver-line);
     border-radius: 22px;
-    padding: 44px 40px;
+    padding: 64px 68px;
+    margin: 0 -28px;
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 40px;
+    gap: 76px;
     align-items: center;
   }
-  .shared-strip h2 { margin-bottom: 12px; }
-  .shared-strip p { color: var(--ink-soft); max-width: 52ch; }
-  .orbits { display: flex; align-items: center; }
+  .shared-strip h2 { margin-bottom: 16px; }
+  .shared-strip p { color: var(--ink-soft); max-width: 52ch; line-height: 1.7; }
+  .orbits { display: flex; align-items: center; padding-right: 8px; }
   .orbit {
-    width: 74px; height: 74px;
+    width: 86px; height: 86px;
     border-radius: 50%;
     border: 1.5px solid var(--emerald);
     display: grid; place-items: center;
     font-family: 'Marcellus', serif;
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     color: var(--emerald);
     background: rgba(255,255,255,0.8);
   }
-  .orbit + .orbit { margin-left: -18px; border-color: var(--silver); color: var(--ink-soft); }
+  .orbit + .orbit { margin-left: -20px; border-color: var(--silver); color: var(--ink-soft); }
   .orbit.blend {
-    margin-left: -18px;
+    margin-left: -20px;
     border-color: transparent;
     background: linear-gradient(var(--pearl), var(--pearl)) padding-box,
                 linear-gradient(120deg, var(--emerald), var(--silver)) border-box;
@@ -360,13 +373,14 @@
     #wheel { max-width: 340px; }
     .modules { grid-template-columns: 1fr 1fr; }
     .feature { grid-template-columns: 1fr; gap: 40px; }
-    .shared-strip { grid-template-columns: 1fr; }
+    .shared-strip { grid-template-columns: 1fr; padding: 40px 32px; gap: 36px; margin: 0; }
     section { padding: 64px 0; }
   }
   @media (max-width: 560px) {
     .modules { grid-template-columns: 1fr; }
     .waitlist { flex-direction: column; }
     .waitlist button { width: 100%; }
+    .tagline { display: none; }
   }
 </style>
 </head>
@@ -375,13 +389,15 @@
 
 <div class="wrap">
   <nav>
-    <a class="brand" href="#">Cluster<span class="dot">.</span></a>
+    <div class="brand-stack">
+      <a class="brand" href="#">Cluster</a>
+      <div class="tagline">For people whose money crosses borders</div>
+    </div>
     <a class="cta-small" href="#join">Join the waitlist</a>
   </nav>
 
   <header class="hero">
     <div>
-      <div class="eyebrow">For people whose money crosses borders</div>
       <h1>Mission control for <em>global finances</em>.</h1>
       <p class="lede">Accounts in three currencies, cards in two countries, and a tax residency clock that's always ticking? CLUSTER puts all of it on one screen. Built by an expat who lived the problem.</p>
       <form class="waitlist" id="join" autocomplete="off">
@@ -413,7 +429,7 @@
       <div class="module reveal"><span class="m-tag">Accounts</span><h3>Assets &amp; liabilities</h3><p>Bank accounts and balances in any currency, snapshotted over time; with liabilities subtracted, not hidden.</p></div>
       <div class="module reveal"><span class="m-tag">Wealth</span><h3>Net worth, charted</h3><p>A candlestick view of your total position, converted into whichever currency you think in right now.</p></div>
       <div class="module reveal"><span class="m-tag">Spend</span><h3>One spending ledger</h3><p>Card and bank spend merged into a single stream, imported by CSV. No bank logins required.</p></div>
-      <div class="module reveal"><span class="m-tag">Documents</span><h3>The paper that follows you</h3><p>Visas, statements, and contracts stored where your finances live - not in a camera roll.</p></div>
+      <div class="module reveal"><span class="m-tag">Documents</span><h3>The paper that follows you</h3><p>Visas, statements, and contracts stored where your finances live, not in a camera roll.</p></div>
     </div>
   </section>
 </div>
@@ -426,15 +442,15 @@
       <div class="c-head"><span>Days by jurisdiction</span><span>2026 · projected</span></div>
       <div class="juris">
         <div class="j-row"><span class="j-name">United Kingdom</span><span class="j-count"><b>121</b> / 183</span></div>
-        <div class="bar"><i data-w="66%"></i></div>
+        <div class="bar"><i data-w="66"></i></div>
       </div>
-      <div class="juris">
-        <div class="j-row"><span class="j-name">Portugal</span><span class="j-count"><b>164</b> / 183</span></div>
-        <div class="bar warn"><i data-w="90%"></i></div>
+      <div class="juris gold">
+        <div class="j-row"><span class="j-name">Portugal</span><span class="j-count"><b>190</b> / 183</span></div>
+        <div class="bar warn"><i data-w="100"></i></div>
       </div>
       <div class="juris">
         <div class="j-row"><span class="j-name">Singapore</span><span class="j-count"><b>38</b> / 183</span></div>
-        <div class="bar"><i data-w="21%"></i></div>
+        <div class="bar"><i data-w="21"></i></div>
       </div>
     </div>
     <div class="feature-copy reveal">
@@ -446,13 +462,15 @@
   </section>
 </div>
 
+<div class="rule"></div>
+
 <div class="wrap">
   <section>
     <div class="shared-strip reveal">
       <div>
         <div class="eyebrow">Shared views</div>
         <h2>Two passports, one household.</h2>
-        <p>Connect with a partner or family member — each of you chooses exactly what to share. See joint travel on one calendar, overlapping trips blended, everything else private by default.</p>
+        <p>Connect with a partner or family member. Each of you chooses exactly what to share: joint travel on one calendar, overlapping trips blended, everything else private by default.</p>
       </div>
       <div class="orbits" aria-hidden="true">
         <div class="orbit">M</div>
@@ -536,26 +554,56 @@
     }
   })();
 
-  // ---- Scroll reveal + bar fills ----
+  // ---- Scroll reveal ----
   (function () {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
           e.target.classList.add('in');
-          e.target.querySelectorAll('.bar i').forEach(function (b) {
-            b.style.width = b.getAttribute('data-w');
-          });
           io.unobserve(e.target);
         }
       });
     }, { threshold: 0.18 });
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        el.classList.add('in');
-        el.querySelectorAll('.bar i').forEach(function (b) { b.style.width = b.getAttribute('data-w'); });
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+  })();
+
+  // ---- Scroll-linked day-counter bars ----
+  (function () {
+    var card = document.querySelector('.counter-card');
+    if (!card) return;
+    var bars = card.querySelectorAll('.bar i');
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      bars.forEach(function (b) { b.style.width = b.getAttribute('data-w') + '%'; });
+      return;
+    }
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var r = card.getBoundingClientRect();
+      var vh = window.innerHeight;
+      // Bars start filling when the card enters the lower viewport,
+      // and reach full target as it climbs toward the middle.
+      var progress = (vh * 0.92 - r.top) / (vh * 0.55);
+      progress = Math.max(0, Math.min(1, progress));
+      bars.forEach(function (b) {
+        var target = parseFloat(b.getAttribute('data-w'));
+        b.style.width = (target * progress) + '%';
       });
     }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
   })();
 
   // ---- Waitlist (front-end only for now) ----
