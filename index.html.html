@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cluster — Mission control for expat finances</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pearl: #FBFBF9;
+    --pearl-deep: #F3F4F0;
+    --ink: #1A241F;
+    --ink-soft: #4A554F;
+    --emerald: #0E6B4F;
+    --emerald-bright: #159A6F;
+    --silver: #C9CFCC;
+    --silver-line: #DDE2DE;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    font-family: 'Figtree', sans-serif;
+    color: var(--ink);
+    background: var(--pearl);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- Pearl iridescence: barely-there sheen layered over white ---- */
+  .pearl-field {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(120% 90% at 15% 10%, rgba(190, 215, 235, 0.20), transparent 55%),
+      radial-gradient(100% 80% at 85% 20%, rgba(214, 197, 226, 0.16), transparent 50%),
+      radial-gradient(110% 90% at 70% 90%, rgba(190, 226, 208, 0.22), transparent 55%),
+      radial-gradient(90% 70% at 25% 80%, rgba(235, 224, 200, 0.14), transparent 50%),
+      var(--pearl);
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---- Nav ---- */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 0;
+  }
+  .brand {
+    font-family: 'Marcellus', serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .brand .dot { color: var(--emerald); }
+  nav a.cta-small {
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--emerald);
+    text-decoration: none;
+    border: 1px solid var(--silver);
+    border-radius: 999px;
+    padding: 9px 20px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  nav a.cta-small:hover, nav a.cta-small:focus-visible {
+    border-color: var(--emerald);
+    background: rgba(14, 107, 79, 0.05);
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 48px;
+    padding: 64px 0 96px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+  }
+  h1 em { font-style: normal; color: var(--emerald); }
+  .hero p.lede {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    margin-bottom: 34px;
+  }
+
+  .waitlist { display: flex; gap: 10px; max-width: 430px; }
+  .waitlist input {
+    flex: 1;
+    font: inherit; font-size: 0.95rem;
+    padding: 13px 18px;
+    border: 1px solid var(--silver);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.7);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s ease;
+    min-width: 0;
+  }
+  .waitlist input:focus-visible { border-color: var(--emerald); }
+  .waitlist button {
+    font: inherit; font-size: 0.95rem; font-weight: 600;
+    color: var(--pearl);
+    background: var(--emerald);
+    border: none; border-radius: 999px;
+    padding: 13px 26px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+  }
+  .waitlist button:hover, .waitlist button:focus-visible { background: var(--emerald-bright); }
+  .waitlist-note {
+    font-size: 0.8rem; color: var(--ink-soft);
+    margin-top: 12px;
+  }
+  .waitlist-done {
+    display: none;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--emerald);
+    padding: 13px 0;
+  }
+
+  /* ---- The wheel ---- */
+  .wheel-holder {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+  .wheel-sheen {
+    position: absolute;
+    width: 115%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      rgba(190, 215, 235, 0.28),
+      rgba(214, 197, 226, 0.22),
+      rgba(190, 226, 208, 0.30),
+      rgba(235, 224, 200, 0.18),
+      rgba(190, 215, 235, 0.28)
+    );
+    filter: blur(48px);
+    animation: sheen-turn 40s linear infinite;
+  }
+  @keyframes sheen-turn { to { transform: rotate(360deg); } }
+  #wheel { position: relative; width: 100%; max-width: 440px; height: auto; }
+  #wheel .seg {
+    fill: rgba(255, 255, 255, 0.82);
+    stroke: var(--silver-line);
+    stroke-width: 1;
+    cursor: pointer;
+    transition: fill 0.25s ease, stroke 0.25s ease;
+  }
+  #wheel .seg:hover, #wheel .seg.lit {
+    fill: rgba(14, 107, 79, 0.09);
+    stroke: var(--emerald);
+  }
+  #wheel .seg-label {
+    font-family: 'Figtree', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    fill: var(--ink);
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  #wheel .hub-ring { fill: none; stroke: var(--emerald); stroke-width: 1.5; }
+  #wheel .hub-text {
+    font-family: 'Marcellus', serif;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    fill: var(--emerald);
+    text-anchor: middle;
+  }
+
+  /* ---- Section scaffolding ---- */
+  section { padding: 88px 0; }
+  .section-head { max-width: 620px; margin-bottom: 56px; }
+  h2 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-head p { color: var(--ink-soft); }
+  .rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--silver), transparent);
+  }
+
+  /* ---- Modules ---- */
+  .modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .module {
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid var(--silver-line);
+    border-radius: 18px;
+    padding: 28px 26px;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .module:hover { border-color: var(--emerald); transform: translateY(-3px); }
+  .module .m-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .module h3 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .module p { font-size: 0.92rem; color: var(--ink-soft); }
+
+  /* ---- Day counter feature ---- */
+  .feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .counter-card {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--silver-line);
+    border-radius: 22px;
+    padding: 34px;
+  }
+  .counter-card .c-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .counter-card .c-head span:first-child { font-weight: 600; }
+  .counter-card .c-head span:last-child {
+    font-family: var(--mono); font-size: 0.75rem; color: var(--ink-soft);
+  }
+  .juris { margin-bottom: 22px; }
+  .juris:last-child { margin-bottom: 0; }
+  .juris .j-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .juris .j-name { font-size: 0.95rem; font-weight: 500; }
+  .juris .j-count {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+  }
+  .juris .j-count b { font-weight: 500; color: var(--emerald); }
+  .bar {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--pearl-deep);
+    overflow: hidden;
+  }
+  .bar i {
+    display: block; height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--emerald), var(--emerald-bright));
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .bar.warn i { background: linear-gradient(to right, #B08A2E, #D4AF37); }
+  .feature-copy h2 { margin-bottom: 16px; }
+  .feature-copy p { color: var(--ink-soft); margin-bottom: 16px; }
+  .feature-copy p:last-child { margin-bottom: 0; }
+
+  /* ---- Shared view ---- */
+  .shared-strip {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--silver-line);
+    border-radius: 22px;
+    padding: 44px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+  .shared-strip h2 { margin-bottom: 12px; }
+  .shared-strip p { color: var(--ink-soft); max-width: 52ch; }
+  .orbits { display: flex; align-items: center; }
+  .orbit {
+    width: 74px; height: 74px;
+    border-radius: 50%;
+    border: 1.5px solid var(--emerald);
+    display: grid; place-items: center;
+    font-family: 'Marcellus', serif;
+    font-size: 1.15rem;
+    color: var(--emerald);
+    background: rgba(255,255,255,0.8);
+  }
+  .orbit + .orbit { margin-left: -18px; border-color: var(--silver); color: var(--ink-soft); }
+  .orbit.blend {
+    margin-left: -18px;
+    border-color: transparent;
+    background: linear-gradient(var(--pearl), var(--pearl)) padding-box,
+                linear-gradient(120deg, var(--emerald), var(--silver)) border-box;
+    border: 1.5px solid transparent;
+    color: var(--emerald);
+  }
+
+  /* ---- Footer CTA ---- */
+  .final { text-align: center; padding: 100px 0 60px; }
+  .final h2 { margin-bottom: 14px; }
+  .final p { color: var(--ink-soft); margin-bottom: 32px; }
+  .final .waitlist { margin: 0 auto; }
+  footer {
+    padding: 30px 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--ink-soft);
+  }
+  footer .f-brand {
+    font-family: 'Marcellus', serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  /* ---- Reveal on scroll ---- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; padding: 40px 0 70px; gap: 56px; }
+    .wheel-holder { order: -1; }
+    #wheel { max-width: 340px; }
+    .modules { grid-template-columns: 1fr 1fr; }
+    .feature { grid-template-columns: 1fr; gap: 40px; }
+    .shared-strip { grid-template-columns: 1fr; }
+    section { padding: 64px 0; }
+  }
+  @media (max-width: 560px) {
+    .modules { grid-template-columns: 1fr; }
+    .waitlist { flex-direction: column; }
+    .waitlist button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="pearl-field" aria-hidden="true"></div>
+
+<div class="wrap">
+  <nav>
+    <a class="brand" href="#">Cluster<span class="dot">.</span></a>
+    <a class="cta-small" href="#join">Join the waitlist</a>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">For people whose money crosses borders</div>
+      <h1>Mission control for <em>expat finances</em>.</h1>
+      <p class="lede">Accounts in three currencies, cards in two countries, and a tax residency clock always ticking. Cluster puts all of it on one screen — built by an expat who lived the problem.</p>
+      <form class="waitlist" id="join" autocomplete="off">
+        <input type="email" required placeholder="you@anywhere.com" aria-label="Email address">
+        <button type="submit">Join the waitlist</button>
+      </form>
+      <div class="waitlist-done">You're on the list. See you at launch.</div>
+      <p class="waitlist-note">Early access opens soon on Android, iOS to follow.</p>
+    </div>
+    <div class="wheel-holder">
+      <div class="wheel-sheen" aria-hidden="true"></div>
+      <svg id="wheel" viewBox="0 0 440 440" role="img" aria-label="Cluster home wheel with six modules: Countries, Cards, Accounts, Wealth, Spend, Documents"></svg>
+    </div>
+  </header>
+</div>
+
+<div class="rule"></div>
+
+<div class="wrap">
+  <section>
+    <div class="section-head reveal">
+      <div class="eyebrow">Six modules, one wheel</div>
+      <h2>Everything scattered across your borders, gathered.</h2>
+      <p>Each module stands alone. Together they're the full picture of a life lived in more than one country.</p>
+    </div>
+    <div class="modules">
+      <div class="module reveal"><span class="m-tag">Countries</span><h3>Where you've been</h3><p>Log trips, drill into cities, and watch your days-per-jurisdiction count itself — the number your tax residency depends on.</p></div>
+      <div class="module reveal"><span class="m-tag">Cards</span><h3>Every card, every country</h3><p>Renewal timelines, annual fees, and points balances across issuers that have never heard of each other.</p></div>
+      <div class="module reveal"><span class="m-tag">Accounts</span><h3>Assets &amp; liabilities</h3><p>Bank accounts and balances in any currency, snapshotted over time — with liabilities subtracted, not hidden.</p></div>
+      <div class="module reveal"><span class="m-tag">Wealth</span><h3>Net worth, charted</h3><p>A candlestick view of your total position, converted into whichever currency you think in this year.</p></div>
+      <div class="module reveal"><span class="m-tag">Spend</span><h3>One spending ledger</h3><p>Card and bank spend merged into a single stream, imported by CSV — no bank logins required.</p></div>
+      <div class="module reveal"><span class="m-tag">Documents</span><h3>The paper that follows you</h3><p>Visas, statements, and contracts stored where your finances live, not in a camera roll.</p></div>
+    </div>
+  </section>
+</div>
+
+<div class="rule"></div>
+
+<div class="wrap">
+  <section class="feature">
+    <div class="counter-card reveal">
+      <div class="c-head"><span>Days by jurisdiction</span><span>2026 · projected</span></div>
+      <div class="juris">
+        <div class="j-row"><span class="j-name">United Kingdom</span><span class="j-count"><b>121</b> / 183</span></div>
+        <div class="bar"><i data-w="66%"></i></div>
+      </div>
+      <div class="juris">
+        <div class="j-row"><span class="j-name">Portugal</span><span class="j-count"><b>164</b> / 183</span></div>
+        <div class="bar warn"><i data-w="90%"></i></div>
+      </div>
+      <div class="juris">
+        <div class="j-row"><span class="j-name">Singapore</span><span class="j-count"><b>38</b> / 183</span></div>
+        <div class="bar"><i data-w="21%"></i></div>
+      </div>
+    </div>
+    <div class="feature-copy reveal">
+      <div class="eyebrow">The day counter</div>
+      <h2>183 is not just a number.</h2>
+      <p>Tax residency turns on how many days you spend where — and most expats find out their count after it matters. Cluster counts as you travel and projects where you'll land by year end, so the threshold never sneaks up on you.</p>
+      <p>Planning a December trip? See what it does to your count before you book.</p>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="shared-strip reveal">
+      <div>
+        <div class="eyebrow">Shared views</div>
+        <h2>Two passports, one household.</h2>
+        <p>Connect with a partner or family member — each of you chooses exactly what to share. See joint travel on one calendar, overlapping trips blended, everything else private by default.</p>
+      </div>
+      <div class="orbits" aria-hidden="true">
+        <div class="orbit">M</div>
+        <div class="orbit blend">&amp;</div>
+        <div class="orbit">A</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="final">
+    <div class="reveal">
+      <h2>Your finances already live in five places.<br>You shouldn't have to.</h2>
+      <p>Join the waitlist and be first aboard.</p>
+      <form class="waitlist" autocomplete="off">
+        <input type="email" required placeholder="you@anywhere.com" aria-label="Email address">
+        <button type="submit">Join the waitlist</button>
+      </form>
+      <div class="waitlist-done">You're on the list. See you at launch.</div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="f-brand">Cluster</span>
+    <span>© 2026 Cluster. Built between time zones.</span>
+  </footer>
+</div>
+
+<script>
+  // ---- Build the six-segment wheel ----
+  (function () {
+    var svg = document.getElementById('wheel');
+    var NS = 'http://www.w3.org/2000/svg';
+    var cx = 220, cy = 220, rO = 172, rI = 104, gap = 2.6;
+    var mods = ['Countries', 'Cards', 'Accounts', 'Wealth', 'Spend', 'Documents'];
+
+    function pt(r, deg) {
+      var rad = (deg - 90) * Math.PI / 180;
+      return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+    }
+
+    mods.forEach(function (name, i) {
+      var a0 = i * 60 + gap, a1 = (i + 1) * 60 - gap;
+      var p1 = pt(rO, a0), p2 = pt(rO, a1), p3 = pt(rI, a1), p4 = pt(rI, a0);
+      var d = 'M' + p1 + ' A' + rO + ' ' + rO + ' 0 0 1 ' + p2 +
+              ' L' + p3 + ' A' + rI + ' ' + rI + ' 0 0 0 ' + p4 + ' Z';
+      var seg = document.createElementNS(NS, 'path');
+      seg.setAttribute('d', d);
+      seg.setAttribute('class', 'seg');
+      svg.appendChild(seg);
+
+      var mid = pt((rO + rI) / 2, (a0 + a1) / 2);
+      var label = document.createElementNS(NS, 'text');
+      label.setAttribute('x', mid[0]);
+      label.setAttribute('y', mid[1] + 4.5);
+      label.setAttribute('class', 'seg-label');
+      label.textContent = name;
+      svg.appendChild(label);
+    });
+
+    var hub = document.createElementNS(NS, 'circle');
+    hub.setAttribute('cx', cx); hub.setAttribute('cy', cy); hub.setAttribute('r', 62);
+    hub.setAttribute('class', 'hub-ring');
+    svg.appendChild(hub);
+
+    var hubText = document.createElementNS(NS, 'text');
+    hubText.setAttribute('x', cx); hubText.setAttribute('y', cy + 5);
+    hubText.setAttribute('class', 'hub-text');
+    hubText.textContent = 'CLUSTER';
+    svg.appendChild(hubText);
+
+    // Gentle segment highlight cycle (skipped if reduced motion)
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var segs = svg.querySelectorAll('.seg'), k = 0;
+      setInterval(function () {
+        segs.forEach(function (s) { s.classList.remove('lit'); });
+        segs[k].classList.add('lit');
+        k = (k + 1) % segs.length;
+      }, 2200);
+    }
+  })();
+
+  // ---- Scroll reveal + bar fills ----
+  (function () {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          e.target.querySelectorAll('.bar i').forEach(function (b) {
+            b.style.width = b.getAttribute('data-w');
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('in');
+        el.querySelectorAll('.bar i').forEach(function (b) { b.style.width = b.getAttribute('data-w'); });
+      });
+    }
+  })();
+
+  // ---- Waitlist (front-end only for now) ----
+  document.querySelectorAll('.waitlist').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      // TODO: wire to Supabase `waitlist` table (remember table GRANTs + RLS)
+      form.style.display = 'none';
+      form.nextElementSibling.style.display = 'block';
+    });
+  });
+</script>
+</body>
+</html>
