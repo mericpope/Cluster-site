@@ -35,6 +35,7 @@
     background: var(--pearl);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
 
   /* ---- Pearl iridescence: barely-there sheen layered over white ---- */
@@ -165,7 +166,7 @@
   }
   .wheel-sheen {
     position: absolute;
-    width: 115%;
+    width: min(115%, 92vw);
     aspect-ratio: 1;
     border-radius: 50%;
     background: conic-gradient(
