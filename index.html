@@ -138,7 +138,9 @@
     appearance: none; -webkit-appearance: none;
   }
   .waitlist select:focus-visible { border-color: var(--emerald); }
-  .waitlist select:invalid { color: var(--ink-soft); }
+.waitlist select:invalid { color: var(--ink-soft); }
+  .w-custom { display: none; }
+  .w-custom.show { display: block; }
   .waitlist input {
     flex: 1;
     font: inherit; font-size: 0.95rem;
@@ -430,6 +432,8 @@
           <option>Keeping financial documents organized</option>
           <option>Something else</option>
         </select>
+</select>
+        <input type="text" class="w-custom" placeholder="Tell us what you're looking to solve" aria-label="Custom interest">
         <button type="submit">Join the waitlist</button>
       </form>
       <div class="waitlist-done">You're on the list. See you at launch.</div>
@@ -516,6 +520,8 @@
       <p>Join the waitlist and be first aboard.</p>
       <form class="waitlist" autocomplete="off">
         <input type="email" required placeholder="you@anywhere.com" aria-label="Email address">
+</select>
+        <input type="text" class="w-custom" placeholder="Tell us what you're looking to solve" aria-label="Custom interest">
         <button type="submit">Join the waitlist</button>
       </form>
       <div class="waitlist-done">You're on the list. See you at launch.</div>
@@ -641,6 +647,15 @@
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjaXl0bXBjaWVmeWNzd2h2emFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyNzYyMTIsImV4cCI6MjA5ODg1MjIxMn0.uhoEEL5zQNrQnR2yqTMpJjlprLkkSzkNabNrSeDwVM8';
 
     var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    form.querySelector('.w-interest').addEventListener('change', function (ev) {
+          var custom = form.querySelector('.w-custom');
+          if (ev.target.value === 'Something else') {
+            custom.classList.add('show');
+            custom.focus();
+          } else {
+            custom.classList.remove('show');
+          }
+        });
 
     document.querySelectorAll('.waitlist').forEach(function (form) {
       form.addEventListener('submit', async function (e) {
@@ -649,8 +664,10 @@
         var button = form.querySelector('button');
 var email = input.value.trim().toLowerCase();
         if (!email) return;
-        var name = (form.querySelector('.w-name') || {}).value || '';
-        var interest = (form.querySelector('.w-interest') || {}).value || '';
+var name = (form.querySelector('.w-name') || {}).value || '';
+        var interestSelect = form.querySelector('.w-interest');
+        var interestCustom = form.querySelector('.w-custom');
+        var interest = interestSelect.value === 'Something else' ? (interestCustom.value || 'Custom (no text)') : interestSelect.value;
 
         button.disabled = true;
         button.textContent = 'Joining\u2026';
