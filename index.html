@@ -370,10 +370,19 @@
   .final h2 { margin-bottom: 14px; }
   .final p { color: var(--ink-soft); margin-bottom: 32px; }
   .final .waitlist { margin: 0 auto; }
-  footer {
+footer {
     padding: 30px 0 40px;
-    display: flex; justify-content: space-between; align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
     font-size: 0.8rem; color: var(--ink-soft);
+}
+footer .f-links {
+    justify-self: center;
+}
+footer span:last-child {
+    justify-self: end;
+}
   }
   footer .f-brand {
     font-family: 'Marcellus', serif;
