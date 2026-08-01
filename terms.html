@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service | Cluster</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pearl: #FBFBF9;
+    --pearl-deep: #F3F4F0;
+    --ink: #1A241F;
+    --ink-soft: #4A554F;
+    --emerald: #0E6B4F;
+    --emerald-bright: #159A6F;
+    --gold: #B08A2E;
+    --silver: #C9CFCC;
+    --silver-line: #DDE2DE;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    font-family: 'Figtree', sans-serif;
+    color: var(--ink);
+    background: var(--pearl);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  .pearl-field {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(120% 90% at 15% 10%, rgba(190, 215, 235, 0.20), transparent 55%),
+      radial-gradient(100% 80% at 85% 20%, rgba(214, 197, 226, 0.16), transparent 50%),
+      radial-gradient(110% 90% at 70% 90%, rgba(190, 226, 208, 0.22), transparent 55%),
+      radial-gradient(90% 70% at 25% 80%, rgba(235, 224, 200, 0.14), transparent 50%),
+      var(--pearl);
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---- Nav ---- */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 0;
+  }
+  .brand-stack { display: flex; flex-direction: column; }
+  .brand {
+    font-family: 'Marcellus', serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .tagline {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-top: 4px;
+  }
+  nav a.cta-small {
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--emerald);
+    text-decoration: none;
+    border: 1px solid var(--silver);
+    border-radius: 999px;
+    padding: 9px 20px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  nav a.cta-small:hover, nav a.cta-small:focus-visible {
+    border-color: var(--emerald);
+    background: rgba(14, 107, 79, 0.05);
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--silver), transparent);
+  }
+
+  /* ---- Doc header ---- */
+  .doc-hero { padding: 56px 0 40px; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.2vw, 2.9rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .doc-hero .effective {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  .doc-hero p.lede {
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin-top: 22px;
+  }
+  .intro-flags {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 24px;
+  }
+  .flag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--emerald);
+    border: 1px solid var(--silver-line);
+    background: rgba(255,255,255,0.6);
+    border-radius: 999px;
+    padding: 7px 14px;
+  }
+
+  /* ---- Table of contents ---- */
+  .toc {
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid var(--silver-line);
+    border-radius: 18px;
+    padding: 28px 30px;
+    margin: 40px 0 8px;
+  }
+  .toc .t-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 16px;
+  }
+  .toc ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 28px;
+  }
+  .toc li a {
+    display: flex; gap: 10px; align-items: baseline;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.94rem;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .toc li a:hover, .toc li a:focus-visible {
+    color: var(--emerald);
+    border-color: var(--emerald);
+  }
+  .toc li .num {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--emerald);
+    min-width: 20px;
+  }
+
+  /* ---- Policy sections ---- */
+  .policy-section {
+    padding: 56px 0;
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 36px;
+  }
+  .policy-section .p-num {
+    font-family: var(--mono);
+    font-size: 2.1rem;
+    color: var(--silver);
+    line-height: 1;
+  }
+  .policy-section h2 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.8vw, 1.7rem);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+  .policy-section > div:last-child p { color: var(--ink-soft); margin-bottom: 14px; }
+  .policy-section > div:last-child p:last-child { margin-bottom: 0; }
+
+  .subblock { margin-bottom: 22px; }
+  .subblock:last-child { margin-bottom: 0; }
+  .subblock h3 {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .subblock p { color: var(--ink-soft); font-size: 0.96rem; }
+
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 6px;
+  }
+  .pill-row span {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--emerald);
+    border: 1px solid var(--silver-line);
+    border-radius: 999px;
+    padding: 7px 14px;
+    background: rgba(14, 107, 79, 0.04);
+  }
+
+  .callout {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--silver-line);
+    border-left: 3px solid var(--emerald);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-top: 8px;
+  }
+  .callout p { color: var(--ink-soft); font-size: 0.94rem; margin: 0; }
+  .callout.warn { border-left-color: var(--gold); }
+  .callout.warn p { color: var(--ink); }
+
+  ul.plain {
+    list-style: none;
+    margin-top: 6px;
+  }
+  ul.plain li {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  ul.plain li:last-child { margin-bottom: 0; }
+  ul.plain li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--emerald);
+  }
+
+  /* ---- Contact card ---- */
+  .contact-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--silver-line);
+    border-radius: 16px;
+    padding: 24px 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .contact-card a {
+    font-family: var(--mono);
+    color: var(--emerald);
+    text-decoration: none;
+    font-size: 0.98rem;
+  }
+  .contact-card a:hover { color: var(--emerald-bright); }
+
+  /* ---- Footer ---- */
+  .doc-footer {
+    text-align: center;
+    padding: 20px 0 8px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  footer {
+    padding: 30px 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--ink-soft);
+  }
+  footer .f-brand {
+    font-family: 'Marcellus', serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  footer .f-links { display: flex; gap: 20px; }
+  footer .f-links a { color: var(--ink-soft); text-decoration: none; }
+  footer .f-links a:hover { color: var(--emerald); }
+
+  /* ---- Reveal on scroll ---- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 720px) {
+    .policy-section { grid-template-columns: 1fr; gap: 10px; }
+    .policy-section .p-num { font-size: 1.4rem; }
+    .toc ol { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 14px; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .tagline { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="pearl-field" aria-hidden="true"></div>
+
+<div class="wrap">
+  <nav>
+    <div class="brand-stack">
+      <a class="brand" href="index.html">Cluster</a>
+      <div class="tagline">For people whose money crosses borders</div>
+    </div>
+    <a class="cta-small" href="index.html#join">Join the waitlist</a>
+  </nav>
+</div>
+
+<div class="rule"></div>
+
+<div class="wrap">
+  <header class="doc-hero">
+    <div class="eyebrow">Legal</div>
+    <h1>Terms of Service</h1>
+    <div class="effective">Effective August 1, 2026</div>
+    <p class="lede">These terms govern your use of Cluster. They're written to be read, not just filed away — but they're still a legal agreement, so please read them before using the app. By creating an account or using Cluster, you agree to these terms.</p>
+    <div class="intro-flags">
+      <span class="flag">Governed by England &amp; Wales law</span>
+      <span class="flag">Free + paid tiers</span>
+    </div>
+  </header>
+
+  <nav class="toc reveal" aria-label="Table of contents">
+    <div class="t-label">On this page</div>
+    <ol>
+      <li><a href="#acceptance"><span class="num">01</span>Acceptance of terms</a></li>
+      <li><a href="#service"><span class="num">02</span>The service</a></li>
+      <li><a href="#accounts"><span class="num">03</span>Accounts &amp; eligibility</a></li>
+      <li><a href="#subscriptions"><span class="num">04</span>Subscriptions &amp; billing</a></li>
+      <li><a href="#responsibility"><span class="num">05</span>Your data &amp; your responsibility</a></li>
+      <li><a href="#acceptable-use"><span class="num">06</span>Acceptable use</a></li>
+      <li><a href="#ip"><span class="num">07</span>Intellectual property</a></li>
+      <li><a href="#disclaimer"><span class="num">08</span>Disclaimer &amp; no financial advice</a></li>
+      <li><a href="#liability"><span class="num">09</span>Limitation of liability</a></li>
+      <li><a href="#termination"><span class="num">10</span>Termination</a></li>
+      <li><a href="#changes"><span class="num">11</span>Changes to these terms</a></li>
+      <li><a href="#law"><span class="num">12</span>Governing law</a></li>
+      <li><a href="#contact"><span class="num">13</span>Contact</a></li>
+    </ol>
+  </nav>
+</div>
+
+<div class="rule"></div>
+
+<div class="wrap">
+  <section class="policy-section reveal" id="acceptance">
+    <div class="p-num">01</div>
+    <div>
+      <h2>Acceptance of terms</h2>
+      <p>By creating a Cluster account, downloading the app, or otherwise using the service, you agree to be bound by these Terms of Service and by our <a href="privacy.html" style="color: var(--emerald);">Privacy Policy</a>. If you don't agree, please don't use Cluster.</p>
+      <p>You must be at least 16 years old to use Cluster. If you're using Cluster on behalf of yourself as an individual, these terms apply to you personally.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="service">
+    <div class="p-num">02</div>
+    <div>
+      <h2>The service</h2>
+      <p>Cluster is a personal finance and travel-tracking app that helps you keep track of your own accounts, cards, trips, documents, and residency status across countries and currencies. Six modules — Countries, Cards, Accounts, Wealth, Spend, and Documents — work together to give you a single view of your cross-border finances.</p>
+      <p>Cluster does not connect to your bank accounts or move money on your behalf. Financial data is either entered manually or imported by you via CSV. Cluster is a record-keeping and visibility tool, not a bank, broker, payment processor, or financial institution.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="accounts">
+    <div class="p-num">03</div>
+    <div>
+      <h2>Accounts &amp; eligibility</h2>
+      <div class="subblock">
+        <h3>Creating an account</h3>
+        <p>You need an account to use Cluster. You agree to provide accurate information and to keep your login credentials secure. You're responsible for all activity that happens under your account.</p>
+      </div>
+      <div class="subblock">
+        <h3>Two-factor authentication</h3>
+        <p>Cluster offers optional two-factor authentication. We strongly recommend enabling it, particularly given the sensitivity of the financial and travel data you may store.</p>
+      </div>
+      <div class="subblock">
+        <h3>One account, one person</h3>
+        <p>Accounts are personal to you. Sharing specific data with another Cluster user is possible through the app's connections feature, described in our Privacy Policy — but account credentials themselves should not be shared.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="subscriptions">
+    <div class="p-num">04</div>
+    <div>
+      <h2>Subscriptions &amp; billing</h2>
+      <p>Cluster offers a free tier and one or more paid subscription tiers with additional features or higher usage limits. Pricing and feature details are shown in the app and on our website at the time of purchase.</p>
+      <div class="subblock">
+        <h3>Billing</h3>
+        <p>Paid subscriptions are billed in advance on a recurring basis (monthly or annually, as selected) through the app store you subscribed via (Apple App Store or Google Play) or through our payment processor if purchased directly. Subscriptions renew automatically unless cancelled before the renewal date.</p>
+      </div>
+      <div class="subblock">
+        <h3>Cancellation</h3>
+        <p>You can cancel your subscription at any time through your app store account settings or within the app. Cancelling stops future billing but does not retroactively refund the current billing period, except where required by law.</p>
+      </div>
+      <div class="subblock">
+        <h3>Price changes</h3>
+        <p>We may change subscription pricing from time to time. If we do, we'll give you reasonable notice before the change applies to your next billing cycle.</p>
+      </div>
+      <div class="subblock">
+        <h3>Refunds</h3>
+        <p>Refunds are handled according to the policies of the app store you purchased through (Apple or Google), or, for direct purchases, at our discretion on a case-by-case basis.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="responsibility">
+    <div class="p-num">05</div>
+    <div>
+      <h2>Your data &amp; your responsibility</h2>
+      <p>You retain ownership of the data you enter into Cluster — your accounts, balances, trip records, documents, and everything else. We don't claim ownership of your content.</p>
+      <p>You're responsible for the accuracy of the information you enter. Cluster calculates figures like day-count residency thresholds and net worth based entirely on what you input; if your source data is incomplete or incorrect, so will the results be.</p>
+      <div class="callout warn">
+        <p>Residency day-counts, tax reporting summaries, and similar figures generated by Cluster are for your own reference and organisation. They are not a substitute for professional tax or legal advice — see Section 08.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="acceptable-use">
+    <div class="p-num">06</div>
+    <div>
+      <h2>Acceptable use</h2>
+      <p>When using Cluster, you agree not to:</p>
+      <ul class="plain">
+        <li>Use the service for any unlawful purpose, or in violation of any applicable regulation</li>
+        <li>Attempt to gain unauthorised access to another user's account or data</li>
+        <li>Reverse engineer, decompile, or attempt to extract the source code of the app, except where permitted by law</li>
+        <li>Interfere with or disrupt the service, its servers, or its networks</li>
+        <li>Upload malicious code, or use the service to distribute malware</li>
+        <li>Use automated means (bots, scrapers) to access the service without our written permission</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="ip">
+    <div class="p-num">07</div>
+    <div>
+      <h2>Intellectual property</h2>
+      <p>The Cluster app, its design, logo, and underlying software are owned by us and protected by intellectual property laws. These terms don't grant you any rights to our trademarks, branding, or source code beyond what's needed to use the app as intended.</p>
+      <p>You keep all rights to the data and content you enter into Cluster, as noted in Section 05.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="disclaimer">
+    <div class="p-num">08</div>
+    <div>
+      <h2>Disclaimer &amp; no financial advice</h2>
+      <p>Cluster is provided "as is" and "as available," without warranties of any kind, whether express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+      <div class="callout warn">
+        <p>Cluster does not provide financial, tax, immigration, or legal advice. Figures and summaries shown in the app — including residency day-counts, net worth calculations, and document organisation — are tools to help you track your own situation, not professional guidance. Always consult a qualified professional (accountant, tax adviser, or immigration lawyer) for decisions with legal or financial consequences.</p>
+      </div>
+      <p>We don't guarantee that the service will be uninterrupted, error-free, or available at all times.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="liability">
+    <div class="p-num">09</div>
+    <div>
+      <h2>Limitation of liability</h2>
+      <p>To the fullest extent permitted by law, Cluster and its operator shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of data, profits, or revenue, arising from your use of — or inability to use — the service.</p>
+      <p>Nothing in these terms excludes or limits liability that cannot be excluded or limited under applicable law, including liability for death or personal injury caused by negligence, or for fraud.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="termination">
+    <div class="p-num">10</div>
+    <div>
+      <h2>Termination</h2>
+      <p>You can delete your account and all associated data at any time from within the app (Account → Delete Account). This is immediate and irreversible.</p>
+      <p>We may suspend or terminate your access to Cluster if you violate these terms, engage in fraudulent or abusive behaviour, or if required to do so by law. Where reasonably possible, we'll give you notice before doing so.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="changes">
+    <div class="p-num">11</div>
+    <div>
+      <h2>Changes to these terms</h2>
+      <p>We may update these terms from time to time. If we make a meaningful change, we'll update the "Effective date" above and, where appropriate, notify you in the app. Continued use of Cluster after a change means you accept the updated terms.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="law">
+    <div class="p-num">12</div>
+    <div>
+      <h2>Governing law</h2>
+      <p>These terms are governed by the laws of England and Wales, without regard to conflict of law principles. Any disputes arising from these terms or your use of Cluster will be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="contact">
+    <div class="p-num">13</div>
+    <div>
+      <h2>Contact</h2>
+      <p>Questions about these terms can be sent to:</p>
+      <div class="contact-card">
+        <a href="mailto:mericpope@gmail.com">mericpope@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="doc-footer">Cluster — Terms of Service · Effective August 1, 2026</div>
+
+  <footer>
+    <span class="f-brand">Cluster</span>
+    <div class="f-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <span>© 2026 Cluster. Built between time zones.</span>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+  })();
+</script>
+</body>
+</html>

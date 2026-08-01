@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | Cluster</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pearl: #FBFBF9;
+    --pearl-deep: #F3F4F0;
+    --ink: #1A241F;
+    --ink-soft: #4A554F;
+    --emerald: #0E6B4F;
+    --emerald-bright: #159A6F;
+    --gold: #B08A2E;
+    --silver: #C9CFCC;
+    --silver-line: #DDE2DE;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    font-family: 'Figtree', sans-serif;
+    color: var(--ink);
+    background: var(--pearl);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  .pearl-field {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(120% 90% at 15% 10%, rgba(190, 215, 235, 0.20), transparent 55%),
+      radial-gradient(100% 80% at 85% 20%, rgba(214, 197, 226, 0.16), transparent 50%),
+      radial-gradient(110% 90% at 70% 90%, rgba(190, 226, 208, 0.22), transparent 55%),
+      radial-gradient(90% 70% at 25% 80%, rgba(235, 224, 200, 0.14), transparent 50%),
+      var(--pearl);
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---- Nav ---- */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 0;
+  }
+  .brand-stack { display: flex; flex-direction: column; }
+  .brand {
+    font-family: 'Marcellus', serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .tagline {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-top: 4px;
+  }
+  nav a.cta-small {
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--emerald);
+    text-decoration: none;
+    border: 1px solid var(--silver);
+    border-radius: 999px;
+    padding: 9px 20px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  nav a.cta-small:hover, nav a.cta-small:focus-visible {
+    border-color: var(--emerald);
+    background: rgba(14, 107, 79, 0.05);
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--silver), transparent);
+  }
+
+  /* ---- Doc header ---- */
+  .doc-hero { padding: 56px 0 40px; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.2vw, 2.9rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .doc-hero .effective {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  .doc-hero p.lede {
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin-top: 22px;
+  }
+  .intro-flags {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 24px;
+  }
+  .flag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--emerald);
+    border: 1px solid var(--silver-line);
+    background: rgba(255,255,255,0.6);
+    border-radius: 999px;
+    padding: 7px 14px;
+  }
+
+  /* ---- Table of contents ---- */
+  .toc {
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid var(--silver-line);
+    border-radius: 18px;
+    padding: 28px 30px;
+    margin: 40px 0 8px;
+  }
+  .toc .t-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 16px;
+  }
+  .toc ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 28px;
+  }
+  .toc li a {
+    display: flex; gap: 10px; align-items: baseline;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.94rem;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .toc li a:hover, .toc li a:focus-visible {
+    color: var(--emerald);
+    border-color: var(--emerald);
+  }
+  .toc li .num {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--emerald);
+    min-width: 20px;
+  }
+
+  /* ---- Policy sections ---- */
+  .policy-section {
+    padding: 56px 0;
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 36px;
+  }
+  .policy-section .p-num {
+    font-family: var(--mono);
+    font-size: 2.1rem;
+    color: var(--silver);
+    line-height: 1;
+  }
+  .policy-section h2 {
+    font-family: 'Marcellus', serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.8vw, 1.7rem);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+  .policy-section > div:last-child p { color: var(--ink-soft); margin-bottom: 14px; }
+  .policy-section > div:last-child p:last-child { margin-bottom: 0; }
+
+  .subblock { margin-bottom: 22px; }
+  .subblock:last-child { margin-bottom: 0; }
+  .subblock h3 {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .subblock p { color: var(--ink-soft); font-size: 0.96rem; }
+
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 6px;
+  }
+  .pill-row span {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--emerald);
+    border: 1px solid var(--silver-line);
+    border-radius: 999px;
+    padding: 7px 14px;
+    background: rgba(14, 107, 79, 0.04);
+  }
+
+  .callout {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--silver-line);
+    border-left: 3px solid var(--emerald);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-top: 8px;
+  }
+  .callout p { color: var(--ink-soft); font-size: 0.94rem; margin: 0; }
+
+  /* ---- Third-party table ---- */
+  .tp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 0.92rem;
+  }
+  .tp-table th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    padding: 0 0 12px;
+    border-bottom: 1px solid var(--silver-line);
+  }
+  .tp-table td {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--silver-line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .tp-table td:first-child { color: var(--ink); font-weight: 600; padding-right: 20px; }
+  .tp-table tr:last-child td { border-bottom: none; }
+
+  /* ---- Contact card ---- */
+  .contact-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--silver-line);
+    border-radius: 16px;
+    padding: 24px 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .contact-card a {
+    font-family: var(--mono);
+    color: var(--emerald);
+    text-decoration: none;
+    font-size: 0.98rem;
+  }
+  .contact-card a:hover { color: var(--emerald-bright); }
+
+  /* ---- Footer ---- */
+  .doc-footer {
+    text-align: center;
+    padding: 20px 0 8px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  footer {
+    padding: 30px 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--ink-soft);
+  }
+  footer .f-brand {
+    font-family: 'Marcellus', serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  footer .f-links { display: flex; gap: 20px; }
+  footer .f-links a { color: var(--ink-soft); text-decoration: none; }
+  footer .f-links a:hover { color: var(--emerald); }
+
+  /* ---- Reveal on scroll ---- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 720px) {
+    .policy-section { grid-template-columns: 1fr; gap: 10px; }
+    .policy-section .p-num { font-size: 1.4rem; }
+    .toc ol { grid-template-columns: 1fr; }
+    .tp-table { font-size: 0.86rem; }
+    footer { flex-direction: column; gap: 14px; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .tagline { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="pearl-field" aria-hidden="true"></div>
+
+<div class="wrap">
+  <nav>
+    <div class="brand-stack">
+      <a class="brand" href="index.html">Cluster</a>
+      <div class="tagline">For people whose money crosses borders</div>
+    </div>
+    <a class="cta-small" href="index.html#join">Join the waitlist</a>
+  </nav>
+</div>
+
+<div class="rule"></div>
+
+<div class="wrap">
+  <header class="doc-hero">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <div class="effective">Effective August 1, 2026</div>
+    <p class="lede">Cluster is a personal finance and travel-tracking app built for one purpose: helping you keep track of your own accounts, trips, documents, and residency status. This page explains, plainly, what information Cluster collects, how it's used, and how you can remove it.</p>
+    <div class="intro-flags">
+      <span class="flag">No data sold</span>
+      <span class="flag">No ads</span>
+      <span class="flag">No third-party tracking</span>
+    </div>
+  </header>
+
+  <nav class="toc reveal" aria-label="Table of contents">
+    <div class="t-label">On this page</div>
+    <ol>
+      <li><a href="#collect"><span class="num">01</span>Information we collect</a></li>
+      <li><a href="#use"><span class="num">02</span>How we use it</a></li>
+      <li><a href="#storage"><span class="num">03</span>Storage &amp; security</a></li>
+      <li><a href="#sharing"><span class="num">04</span>Sharing with other Cluster users</a></li>
+      <li><a href="#thirdparty"><span class="num">05</span>Third-party services</a></li>
+      <li><a href="#retention"><span class="num">06</span>Retention &amp; deletion</a></li>
+      <li><a href="#children"><span class="num">07</span>Children's privacy</a></li>
+      <li><a href="#changes"><span class="num">08</span>Changes to this policy</a></li>
+      <li><a href="#contact"><span class="num">09</span>Contact</a></li>
+    </ol>
+  </nav>
+</div>
+
+<div class="rule"></div>
+
+<div class="wrap">
+  <section class="policy-section reveal" id="collect">
+    <div class="p-num">01</div>
+    <div>
+      <h2>Information we collect</h2>
+      <p>Everything below is information you enter yourself while using the app. Cluster has no marketing forms, no web tracking, and no data collected before you create an account.</p>
+
+      <div class="subblock">
+        <h3>Account information</h3>
+        <p>Email address, password (handled by our authentication provider, never stored by Cluster in plain text), display name, and an optional profile photo.</p>
+      </div>
+      <div class="subblock">
+        <h3>Financial information</h3>
+        <p>Accounts, balances, transactions, credit cards, points balances, and budgets that you manually enter or import via CSV.</p>
+      </div>
+      <div class="subblock">
+        <h3>Travel &amp; residency information</h3>
+        <p>Countries and cities visited, trip dates and itineraries, and the home country/city you set — used to calculate day-count residency thresholds and related reporting (e.g. FBAR/T1135-style foreign asset summaries) for your own reference.</p>
+      </div>
+      <div class="subblock">
+        <h3>Identity &amp; travel documents</h3>
+        <p>Files you choose to upload — passports, visas, insurance, tax, housing, or proof-of-travel documents — along with the metadata you attach to them (type, dates, notes).</p>
+      </div>
+      <div class="subblock">
+        <h3>Citizenship &amp; visa records</h3>
+        <p>Countries of citizenship and visa details you enter, used for the app's own residency and travel-prep features.</p>
+      </div>
+      <div class="subblock">
+        <h3>Two-factor authentication</h3>
+        <p>If you enable it, a TOTP (authenticator app) secret is generated and managed entirely by our authentication provider — Cluster's own database never sees or stores this secret.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="use">
+    <div class="p-num">02</div>
+    <div>
+      <h2>How we use it</h2>
+      <p>Information you provide is used exclusively to power the features you're using it for: tracking balances and spend, calculating day-count and residency figures, storing your documents, and generating the reports and summaries you request inside the app.</p>
+      <div class="pill-row">
+        <span>No advertising</span>
+        <span>No analytics SDKs</span>
+        <span>No data resale</span>
+        <span>No marketing emails</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="storage">
+    <div class="p-num">03</div>
+    <div>
+      <h2>Storage &amp; security</h2>
+      <p>Cluster is built on Supabase, a hosted Postgres database and file storage provider. A few specific protections are worth naming:</p>
+      <div class="subblock">
+        <h3>Row-level security</h3>
+        <p>Every table is scoped at the database level so your data is only ever readable by your own account — this is enforced by the database itself, not just the app's code.</p>
+      </div>
+      <div class="subblock">
+        <h3>Private document storage</h3>
+        <p>Uploaded files (passports, visas, etc.) live in a private storage bucket, never publicly listed or indexed. The app briefly generates a time-limited link to view a file when you open it, which expires shortly after.</p>
+      </div>
+      <div class="subblock">
+        <h3>Optional two-factor authentication</h3>
+        <p>You can require a one-time authenticator code at sign-in, in addition to your password.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="sharing">
+    <div class="p-num">04</div>
+    <div>
+      <h2>Sharing with other Cluster users</h2>
+      <p>Cluster has an opt-in connections feature that lets you share specific data — such as trip plans, account summaries, or document metadata — with another Cluster user you've explicitly connected with. Nothing is shared automatically: every module (countries, trips, cards, accounts, documents) has its own separate toggle, off by default, and either side can revoke access at any time.</p>
+      <div class="callout">
+        <p>Shared document access is metadata only (name, type, expiry) unless you separately choose to share the underlying file.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="thirdparty">
+    <div class="p-num">05</div>
+    <div>
+      <h2>Third-party services</h2>
+      <table class="tp-table">
+        <thead>
+          <tr><th>Service</th><th>Purpose</th><th>What's shared</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Supabase</td>
+            <td>Database, authentication, and file storage</td>
+            <td>All account data described above — this is the app's own backend, not a separate third party in the marketing sense.</td>
+          </tr>
+          <tr>
+            <td>Frankfurter (api.frankfurter.dev)</td>
+            <td>Daily currency exchange rates</td>
+            <td>Nothing personal — a generic request for public exchange-rate figures, with no account or device identifiers attached.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 20px;">Cluster does not integrate any advertising network, analytics SDK, or crash-reporting tool that would transmit your usage data off-device.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="retention">
+    <div class="p-num">06</div>
+    <div>
+      <h2>Retention &amp; deletion</h2>
+      <p>Your data is retained for as long as your account exists. You can permanently delete your account and all associated data at any time from within the app (Account → Delete Account). Deletion is immediate and irreversible — it removes your accounts, transactions, documents, trips, citizenship records, connections, and every other record tied to your account in a single operation.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="children">
+    <div class="p-num">07</div>
+    <div>
+      <h2>Children's privacy</h2>
+      <p>Cluster is intended for adults managing their own finances and travel and is not directed at children. We don't knowingly collect information from anyone under 16.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="changes">
+    <div class="p-num">08</div>
+    <div>
+      <h2>Changes to this policy</h2>
+      <p>If this policy changes in a meaningful way, the "Effective date" above will be updated. Continued use of the app after a change means you accept the updated policy.</p>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="policy-section reveal" id="contact">
+    <div class="p-num">09</div>
+    <div>
+      <h2>Contact</h2>
+      <p>Questions about this policy or your data can be sent to:</p>
+      <div class="contact-card">
+        <a href="mailto:mericpope@gmail.com">mericpope@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="doc-footer">Cluster — Privacy Policy · Effective August 1, 2026</div>
+
+  <footer>
+    <span class="f-brand">Cluster</span>
+    <div class="f-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <span>© 2026 Cluster. Built between time zones.</span>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+  })();
+</script>
+</body>
+</html>
