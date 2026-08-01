@@ -652,8 +652,12 @@ footer .f-links a:hover { color: var(--emerald); }
     var SUPABASE_URL = 'https://rciytmpciefycswhvzaj.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJjaXl0bXBjaWVmeWNzd2h2emFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyNzYyMTIsImV4cCI6MjA5ODg1MjIxMn0.uhoEEL5zQNrQnR2yqTMpJjlprLkkSzkNabNrSeDwVM8';
 
-    var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    form.querySelector('.w-interest').addEventListener('change', function (ev) {
+var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+document.querySelectorAll('.waitlist').forEach(function (form) {
+      var interestSelect = form.querySelector('.w-interest');
+      if (interestSelect) {
+        interestSelect.addEventListener('change', function (ev) {
           var custom = form.querySelector('.w-custom');
           if (ev.target.value === 'Something else') {
             custom.classList.add('show');
@@ -662,8 +666,8 @@ footer .f-links a:hover { color: var(--emerald); }
             custom.classList.remove('show');
           }
         });
+      }
 
-    document.querySelectorAll('.waitlist').forEach(function (form) {
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         var input = form.querySelector('input[type="email"]');
